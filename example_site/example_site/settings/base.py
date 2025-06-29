@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    "wagtail_admin_modals", # ADD `wagtail_admin_modals` to your INSTALLED_APPS
 ]
 
 MIDDLEWARE = [
