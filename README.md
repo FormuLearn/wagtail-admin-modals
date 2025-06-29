@@ -4,5 +4,7 @@ Intended to be an open source library that makes it easier to implement custom m
 ## Example Site Demo
 
 login details:
+
 username: modals-example
+
 password: modals-example
