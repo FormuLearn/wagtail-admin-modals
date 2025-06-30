@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="modal-content">
+  <header class="modal-header">
+    <h1>{{ header }}</h1>
+  </header>
+  <div class="modal-content-wrapper">
+    {% block modal_content %}
+      {{ content|safe }}
+    {% endblock %}
+  </div>
+</div>
