@@ -1,0 +1,22 @@
+/* Always show the close button */
+.modal-header .close {
+  opacity: 1 !important;
+}
+
+/* A bit more breathing room around the edges */
+.modal-content {
+  margin: 1.5rem;
+  padding: 0;
+  max-width: 800px;
+}
+
+/* A little padding inside the content area */
+.modal-content-wrapper {
+  padding: 1rem 1.5rem;
+}
+
+/* Tighter header spacing */
+.modal-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e1e1e1;
+}

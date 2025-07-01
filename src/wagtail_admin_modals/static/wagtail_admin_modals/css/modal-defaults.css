@@ -1,0 +1,16 @@
+.w-theme-light {
+    --w-color-modal-close-button: rgb(33, 32, 33);
+}
+
+.w-theme-dark {
+    --w-color-modal-close-button: #f5f5f5;
+}
+
+.modal .close.button {
+    color: var(--w-color-modal-close-button);
+}
+
+.modal-content {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}

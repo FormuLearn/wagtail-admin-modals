@@ -6,11 +6,18 @@ from django.templatetags.static import static
 from django.utils.html import format_html
 
 _js_injected = False
+_css_injected = False
 
 def _inject_modal_js():
     return format_html(
         '<script src="{}"></script>',
         static('wagtail_admin_modals/js/modal-workflow-wrapper.js')
+    )
+
+def _inject_modal_css():
+    return format_html(
+        '<link rel="stylesheet" href="{}">',
+        static('wagtail_admin_modals/css/modal-defaults.css')
     )
 
 @hooks.register('register_modal_urls')
@@ -34,11 +41,15 @@ def _register_admin_urls():
     ]
 
 def register_modal(route: str, view_cls, name: str):
-    global _js_injected
+    global _js_injected, _css_injected
 
     if not _js_injected:
         hooks.register('insert_global_admin_js')(_inject_modal_js)
         _js_injected = True
+    
+    if not _css_injected:
+        hooks.register('insert_global_admin_css')(_inject_modal_css)
+        _css_injected = True
 
     def _modal_urls():
         return [path(route, view_cls.as_view(), name=name)]
