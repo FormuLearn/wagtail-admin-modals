@@ -3,10 +3,7 @@
 from wagtail_admin_modals.views import BaseModalView
 
 class TestModalView(BaseModalView):
-    def get_template_name(self):
-        # use the library's base modal wrapper
-        return "wagtail_admin_modals/base_modal.html"
-
+    
     def get_template_vars(self, request, *args, **kwargs):
         return {
             "header": "👋 Welcome to Your Modal",

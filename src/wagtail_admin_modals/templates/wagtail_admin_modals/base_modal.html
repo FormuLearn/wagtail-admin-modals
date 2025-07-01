@@ -1,4 +1,15 @@
-{% load i18n %}
+{% load i18n static%}
+
+{% block css_files %}
+  {% if css_files %}
+    {% for css in css_files %}
+      <link rel="stylesheet" href="{% static css %}">
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
 <div class="modal-content">
   <header class="modal-header">
     <h1>{{ header }}</h1>
@@ -9,3 +20,13 @@
     {% endblock %}
   </div>
 </div>
+
+{% block js_files %}
+  {% if js_files %}
+    {% for js in js_files %}
+      <script src="{% static js %}"></script>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

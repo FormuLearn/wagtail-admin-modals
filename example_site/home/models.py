@@ -9,6 +9,5 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         HelpPanel(template="panels/test_modal.html", heading="Test Modal"),
-        
     ]
     

@@ -13,14 +13,11 @@ class BaseModalView(View, metaclass=abc.ABCMeta):
     """
 
     # Subclasses should override these attributes:
-    template_name = None
+    template_name = "wagtail_admin_modals/base_modal.html"
     template_vars = {}
     json_data = {}
-
-    @abc.abstractmethod
-    def get_template_name(self):
-        """Return the template name for the modal."""
-        raise NotImplementedError
+    css_files = []
+    js_files = []
 
     @abc.abstractmethod
     def get_template_vars(self, request, *args, **kwargs):
@@ -31,13 +28,40 @@ class BaseModalView(View, metaclass=abc.ABCMeta):
     def get_json_data(self, request, *args, **kwargs):
         """Return a dict to be returned as json_data for the modal workflow."""
         raise NotImplementedError
+    
+    def _append_css_files(self, template_vars: dict):
+        if not isinstance(self.css_files, list):
+            raise ValueError('Classes that extend wagtail_admin_modals.views.BaseModalView css_files attribute must be of type List[str]')
+        if not ('css_files' in template_vars):
+            template_vars['css_files'] = self.css_files
+        elif isinstance(template_vars['css_files'], list):
+            template_vars['css_files'] += self.css_files
+
+        return template_vars
+
+    def _append_js_files(self, template_vars: dict):
+        if not isinstance(self.js_files, list):
+            raise ValueError('Classes that extend wagtail_admin_modals.views.BaseModalView js_files attribute must be of type List[str]')
+        if not('js_files' in template_vars):
+            template_vars['js_files'] = self.js_files
+        elif isinstance(template_vars['js_files'], list):
+            template_vars['js_files'] += self.js_files
+
+        return template_vars
 
     def get(self, request, *args, **kwargs):
         # Resolve template name
-        template = self.get_template_name() or self.template_name
+        if self.template_name is None:
+            raise ValueError(f"{self.__class__.__name__} must declare a self.template_name variable")
+        
+        template = self.template_name
         # Resolve context dicts
         tpl_vars = self.get_template_vars(request, *args, **kwargs)
         jdata = self.get_json_data(request, *args, **kwargs)
+
+        # add local frontend files to template vars:
+        tpl_vars = self._append_css_files(tpl_vars)
+        tpl_vars = self._append_js_files(tpl_vars)
 
         return render_modal_workflow(
             request,
