@@ -7,8 +7,6 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
-from wagtail_admin_modals.urls import modal_urlpatterns
-
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
@@ -35,5 +33,3 @@ urlpatterns = urlpatterns + [
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
 ]
-
-urlpatterns += modal_urlpatterns('admin/modals/')
