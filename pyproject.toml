@@ -19,3 +19,16 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"wagtail_admin_modals" = [
+  # templates
+  "templates/wagtail_admin_modals/*.html",
+  "templates/wagtail_admin_modals/**/*.html",
+  # CSS and JS under the static folder
+  "static/wagtail_admin_modals/css/*.css",
+  "static/wagtail_admin_modals/js/*.js",
+]
