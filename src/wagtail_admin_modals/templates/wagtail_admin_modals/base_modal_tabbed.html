@@ -1,0 +1,49 @@
+{% extends "wagtail_admin_modals/base_modal.html" %}
+{% load i18n static %}
+
+{% block css_files %}
+  {% if css_files %}
+    {% for css in css_files %}
+      <link rel="stylesheet" href="{% static css %}">
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block modal_content %}
+  <div class="wam-tabs">
+
+    <ul class="wam-tabs-nav">
+      {% for tab in tabs %}
+        <li
+          class="wam-tab-button{% if forloop.first %} active{% endif %}"
+          data-tab-key="{{ tab.key }}"
+        >{{ tab.title }}</li>
+      {% endfor %}
+    </ul>
+
+    <div class="wam-tabs-panels">
+      {% for tab in tabs %}
+        <div
+          class="wam-tab-panel{% if forloop.first %} active{% endif %}"
+          data-tab-pane="{{ tab.key }}"
+        >
+          {{ tab.html|safe }}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block js_files %}
+  {% if js_files %}
+    {% for js in js_files %}
+      <script src="{% static js %}"></script>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}{% endblock %}
+

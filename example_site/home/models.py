@@ -7,5 +7,6 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         ButtonPanel(url_name="test_modal", label="Open Test Modal"),
+        ButtonPanel(url_name="my_tabs", label="Open Tabs Modal"),
     ]
     

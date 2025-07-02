@@ -48,6 +48,13 @@ class BaseModalView(View, metaclass=abc.ABCMeta):
             template_vars['js_files'] += self.js_files
 
         return template_vars
+    
+    def _append_tab_vars(self, tpl_vars):
+        """
+        No-op in the base class. TabbedModalView will override this.
+        """
+        tpl_vars.setdefault('tabs', [])
+        return tpl_vars
 
     def get(self, request, *args, **kwargs):
         # Resolve template name
@@ -62,6 +69,7 @@ class BaseModalView(View, metaclass=abc.ABCMeta):
         # add local frontend files to template vars:
         tpl_vars = self._append_css_files(tpl_vars)
         tpl_vars = self._append_js_files(tpl_vars)
+        tpl_vars = self._append_tab_vars(tpl_vars)
 
         return render_modal_workflow(
             request,
@@ -70,3 +78,47 @@ class BaseModalView(View, metaclass=abc.ABCMeta):
             template_vars=tpl_vars,
             json_data=jdata,
         )
+
+
+from django.template.loader import render_to_string
+
+class TabbedModalView(BaseModalView):
+    """
+    Subclasses should set:
+      - tabs: a list of dicts with keys:
+          * key:   unique string, used in IDs
+          * title: displayed in the tab nav
+          * template: path to a small template for that pane
+          * context: (optional) extra vars for that pane
+    """
+    tabs = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # append the tab-switching script
+        # ensure our tabs CSS and JS are injected
+        self.css_files = getattr(self, 'css_files', []) + [
+            'wagtail_admin_modals/css/modal-tabs.css',
+        ]
+        self.js_files = getattr(self, 'js_files', []) + [
+            'wagtail_admin_modals/js/modal-tabs.js',
+        ]
+
+    def _append_tab_vars(self, tpl_vars):
+        """
+        Render each tab’s template into HTML, then store a list of
+        {'key','title','html'} in tpl_vars['tabs'].
+        """
+        rendered = []
+        for tab in self.tabs:
+            pane_context = {**tpl_vars, **tab.get('context', {})}
+            html = render_to_string(tab['template'], pane_context)
+
+            rendered.append({
+                'key':   tab['key'],
+                'title': tab['title'],
+                'html':  html,
+            })
+
+        tpl_vars['tabs'] = rendered
+        return tpl_vars

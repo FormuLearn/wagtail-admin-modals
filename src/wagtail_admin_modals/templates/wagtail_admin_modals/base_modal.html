@@ -10,17 +10,18 @@
 
 {% block extra_css %}{% endblock %}
 
-<div class="modal-content">
-  <header class="modal-header">
-    <h1>{{ header }}</h1>
-  </header>
-  <div class="modal-content-wrapper">
-    {% block modal_content %}
-      {{ content|safe }}
-    {% endblock %}
+<div class="modal-dialog">
+  <div class="modal-content">
+    <header class="modal-header">
+      <h1>{{ header }}</h1>
+    </header>
+    <div class="modal-content-wrapper">
+      {% block modal_content %}
+        {{ content|safe }}
+      {% endblock %}
+    </div>
   </div>
 </div>
-
 {% block js_files %}
   {% if js_files %}
     {% for js in js_files %}
