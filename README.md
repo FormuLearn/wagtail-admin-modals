@@ -1,4 +1,4 @@
-# wagtail-admin-modals v0.2.0
+# wagtail-admin-modals v0.3.0
 
 A lightweight library for adding rich, workflow-style modals to the Wagtail admin interface.
 
