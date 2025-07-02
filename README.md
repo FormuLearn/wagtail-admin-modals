@@ -18,3 +18,5 @@ A lightweight library for adding rich, workflow-style modals to the Wagtail admi
 - **Demo**: fully working `example_site` included.
 
 ---
+
+> *Built with ❤️ by Nicholas Roy, CTO at FormuLearn B.V.*
