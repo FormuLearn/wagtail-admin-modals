@@ -1,0 +1,8 @@
+{# src/wagtail_admin_modals/templates/wagtail_admin_modals/panels/button_panel.html #}
+{% load i18n %}
+{% url full_url_name as modal_url %}
+<a href="{{ modal_url }}"
+   class="button button-primary"
+   data-modal-name="{{ url_name }}">
+  {{ label }}
+</a>

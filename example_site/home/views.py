@@ -3,6 +3,14 @@
 from wagtail_admin_modals.views import BaseModalView
 
 class TestModalView(BaseModalView):
+
+    js_files = [
+        'js/test_file.js',
+    ]
+
+    css_files = [
+        'css/test_file.css',
+    ]
     
     def get_template_vars(self, request, *args, **kwargs):
         return {
