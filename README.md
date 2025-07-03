@@ -20,7 +20,7 @@ A lightweight library for adding rich, workflow-style modals to the Wagtail admi
 ---
 
 > *Built with ❤️ by Nicholas Roy, CT[![Published on Django Packages]
-
+---
 (https://img.shields.io/badge/Published%20on-Django%20Packages-0c3c26)](https://djangopackages.org/packages/p/wagtail-admin-modals/)O at FormuLearn B.V.*
 
 
